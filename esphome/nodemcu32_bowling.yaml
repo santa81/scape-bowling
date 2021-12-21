@@ -1,13 +1,12 @@
 esphome:
-  name: nodemcu32_bowling
+  name: nodemcu32-bowling
   platform: ESP32
   board: nodemcu-32s
 
 wifi:
   ssid: !secret wifi_ssid
   password: !secret wifi_password
-  power_save_mode: none
-  
+
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
     ssid: "Nodemcu32 Bowling"
@@ -28,15 +27,6 @@ ota:
 web_server:
   port: 80
   
-#globals:
-#  - id: spielstatus
-#    type: int
-#    restore_value: no
-#    initial_value: '0'
-    # 0-initial
-    # 1-pins unten wurfbereit
-    # 2-pins unten zählen und hoch
-    # 3-pins oben und runter
 
 i2c:
   - id: bus_a
@@ -78,7 +68,7 @@ light:
       - id: statuspins1
         from: 0
         to: 0
-    internal: true
+#    internal: true
   - platform: partition
 #    name: "Statuslicht Pin 2"
     id: statuspin2
@@ -86,7 +76,7 @@ light:
       - id: statuspins1
         from: 1
         to: 1
-    internal: true
+#    internal: true
   - platform: partition
 #    name: "Statuslicht Pin 3"
     id: statuspin3
@@ -94,7 +84,7 @@ light:
       - id: statuspins1
         from: 2
         to: 2
-    internal: true
+#    internal: true
   - platform: partition
 #    name: "Statuslicht Pin 4"
     id: statuspin4
@@ -102,7 +92,7 @@ light:
       - id: statuspins1
         from: 5
         to: 5
-    internal: true
+#    internal: true
   - platform: partition
 #    name: "Statuslicht Pin 5"
     id: statuspin5
@@ -110,7 +100,7 @@ light:
       - id: statuspins1
         from: 4
         to: 4
-    internal: true
+#    internal: true
   - platform: partition
 #    name: "Statuslicht Pin 6"
     id: statuspin6
@@ -118,7 +108,7 @@ light:
       - id: statuspins1
         from: 3
         to: 3
-    internal: true
+#    internal: true
   - platform: partition
 #    name: "Statuslicht Pin 7"
     id: statuspin7
@@ -126,7 +116,7 @@ light:
       - id: statuspins1
         from: 6
         to: 6
-    internal: true
+#    internal: true
   - platform: partition
 #    name: "Statuslicht Pin 8"
     id: statuspin8
@@ -134,7 +124,7 @@ light:
       - id: statuspins1
         from: 7
         to: 7
-    internal: true
+#    internal: true
   - platform: partition
 #    name: "Statuslicht Pin 9"
     id: statuspin9
@@ -142,7 +132,7 @@ light:
       - id: statuspins1
         from: 8
         to: 8
-    internal: true
+#    internal: true
   - platform: partition
 #    name: "Statuslicht Pin 10"
     id: statuspin10
@@ -150,7 +140,7 @@ light:
       - id: statuspins1
         from: 9
         to: 9
-    internal: true
+#    internal: true
 #####################Beleuchtung Pins
   - platform: fastled_clockless
     chipset: WS2811
@@ -234,6 +224,7 @@ binary_sensor:
 #####################Statussensoren Pins
   - platform: gpio
     name: "Pin 1"
+    id: pin1
     pin:
       number: GPIO18
       mode: INPUT_PULLUP
@@ -246,6 +237,7 @@ binary_sensor:
         - light.turn_off: statuspin1
   - platform: gpio
     name: "Pin 2"
+    id: pin2
     pin:
       number: GPIO22
       mode: INPUT_PULLUP
@@ -258,6 +250,7 @@ binary_sensor:
         - light.turn_off: statuspin2
   - platform: gpio
     name: "Pin 3"
+    id: pin3
     pin:
       number: GPIO19
       mode: INPUT_PULLUP
@@ -270,6 +263,7 @@ binary_sensor:
         - light.turn_off: statuspin3
   - platform: gpio
     name: "Pin 4"
+    id: pin4
     pin:
       number: GPIO23
       mode: INPUT_PULLUP
@@ -282,6 +276,7 @@ binary_sensor:
         - light.turn_off: statuspin4
   - platform: gpio
     name: "Pin 5"
+    id: pin5
     pin:
       number: GPIO21
       mode: INPUT_PULLUP
@@ -294,6 +289,7 @@ binary_sensor:
         - light.turn_off: statuspin5
   - platform: gpio
     name: "Pin 6"
+    id: pin6
     pin:
       number: GPIO12
       mode: INPUT_PULLUP
@@ -306,6 +302,7 @@ binary_sensor:
         - light.turn_off: statuspin6
   - platform: gpio
     name: "Pin 7"
+    id: pin7
     pin:
       number: GPIO14
       mode: INPUT_PULLUP
@@ -318,6 +315,7 @@ binary_sensor:
         - light.turn_off: statuspin7
   - platform: gpio
     name: "Pin 8"
+    id: pin8
     pin:
       number: GPIO33
       mode: INPUT_PULLUP
@@ -330,6 +328,7 @@ binary_sensor:
         - light.turn_off: statuspin8
   - platform: gpio
     name: "Pin 9"
+    id: pin9
     pin:
       number: GPIO32
       mode: INPUT_PULLUP
@@ -342,6 +341,7 @@ binary_sensor:
         - light.turn_off: statuspin9
   - platform: gpio
     name: "Pin 10"
+    id: pin10
     pin:
       number: GPIO27
       mode: INPUT_PULLUP
@@ -361,7 +361,7 @@ binary_sensor:
       mode: INPUT_PULLUP
       inverted: true
     id: lasersensor1
-    name: "Lichtschranke1"
+#    name: "Lichtschranke1"
     filters:
       - delayed_off: 2000ms
   - platform: gpio
@@ -371,7 +371,7 @@ binary_sensor:
       mode: INPUT_PULLUP
       inverted: true
     id: lasersensor2
-    name: "Lichtschranke2"
+#    name: "Lichtschranke2"
     filters:
       - delayed_off: 2000ms
   - platform: gpio
@@ -381,7 +381,7 @@ binary_sensor:
       mode: INPUT_PULLUP
       inverted: true
     id: lasersensor3
-    name: "Lichtschranke3"
+#    name: "Lichtschranke3"
     filters:
       - delayed_off: 2000ms
 #####################Statussensoren Winde        
@@ -389,27 +389,33 @@ binary_sensor:
     pin:
       mcp23xxx: gpio_hub
       number: 13
+      inverted: true
       mode: INPUT_PULLUP
-      inverted: false
     id: winde_links
     name: "winde links"
   - platform: gpio
     pin:
       mcp23xxx: gpio_hub
       number: 14
+      inverted: true
       mode: INPUT_PULLUP
-      inverted: false
     id: winde_mitte
     name: "winde mitte"
     on_press:
       then:
-        - cover.stop: windensteuerung
+        - lambda: |
+            if (id(windensteuerung).current_operation != COVER_OPERATION_IDLE)  
+              {
+                auto call = id(windensteuerung).make_call();
+                call.set_command_stop();
+                call.perform();  // Cover is opening/closing. Stop it
+              }
   - platform: gpio
     pin:
       mcp23xxx: gpio_hub
       number: 15
       mode: INPUT_PULLUP
-      inverted: false
+      inverted: true
     id: winde_rechts
     name: "winde rechts"
 #####################externe Taster
@@ -440,7 +446,6 @@ binary_sensor:
   - platform: gpio
     pin:
       number: GPIO35
-#      mode: extern PULLUP
       inverted: true
     filters:
       - delayed_on: 50ms
@@ -462,7 +467,6 @@ binary_sensor:
                 call.set_command_stop();
                 call.perform();  // Cover is opening/closing. Stop it
               }
-
 
 
 output:
@@ -668,11 +672,11 @@ switch:
         level: -1
 #########################Motor
   - platform: output
-    name: "Motor links"
+#    name: "Motor links"
     output: 'links_output_1'
     id: 'motor_links'
   - platform: output
-    name: "Motor rechts"
+#    name: "Motor rechts"
     output: 'rechts_output_1'
     id: 'motor_rechts'
 
@@ -683,7 +687,7 @@ cover:
     id: windensteuerung
     open_action:
       - switch.turn_on: motor_links
-    open_duration: 2min
+    open_duration: 12s
     open_endstop: winde_links
 
     close_action:
@@ -700,6 +704,31 @@ cover:
       
       
 sensor:
+  - platform: binary_sensor_map
+    id: pinstatus
+    name: 'Pinstatus'
+    type: GROUP
+    channels:
+      - binary_sensor: pin1
+        value: 1
+      - binary_sensor: pin2
+        value: 2
+      - binary_sensor: pin3
+        value: 4
+      - binary_sensor: pin4
+        value: 8
+      - binary_sensor: pin5
+        value: 16
+      - binary_sensor: pin6
+        value: 32
+      - binary_sensor: pin7
+        value: 64
+      - binary_sensor: pin8
+        value: 128
+      - binary_sensor: pin9
+        value: 256
+      - binary_sensor: pin10
+        value: 512
 #####################Temperaursensor
   - platform: bme280
     temperature:
